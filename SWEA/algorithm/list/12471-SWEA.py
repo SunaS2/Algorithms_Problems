@@ -1,5 +1,5 @@
 def my_max(lst):
-    max_l = 0
+    max_l = 0 #만약에 음수도 고려한다면 좋은 초기화는 아님!
     for l in lst:
         if max_l < l:
             max_l = l
