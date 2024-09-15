@@ -1,25 +1,18 @@
-## 시간 초과
-# def fibonacci(n):
-#     global call_0, call_1
-#     if n == 0:
-#         call_0 += 1
-#         return 0
-    
-#     elif n == 1:
-#         call_1 += 1
-#         return 1
-    
-#     else:
-#         return fibonacci(n-1) + fibonacci(n-2)
-    
+import sys
+input = sys.stdin.readline
+def fibo(n):
+    if n >= len(memo):
+        memo.append(fibo(n-1)+fibo(n-2))
+    return memo[n]
+
 T = int(input())
-
-for _ in range(T):
-    N = int(input())
-    call_0, call_1 = 1, 0
-
-    for i in range(1, N+1):
-        call_0, call_1 = call_1, call_0 + call_1
-
-    # fibonacci(N)
-    print(call_0, call_1)
+for tc in range(1,T+1):
+    N=int(input())
+    memo = [0,1]
+    zero = 0
+    one = 0
+    fibo(N)
+    # if N > 0:
+    #     zero = memo[N-1]
+    #     one = memo[N]
+    print(memo[N-1],memo[N])
