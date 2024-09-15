@@ -9,10 +9,5 @@ T = int(input())
 for tc in range(1,T+1):
     N=int(input())
     memo = [0,1]
-    zero = 0
-    one = 0
     fibo(N)
-    # if N > 0:
-    #     zero = memo[N-1]
-    #     one = memo[N]
     print(memo[N-1],memo[N])
