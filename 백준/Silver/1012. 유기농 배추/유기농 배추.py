@@ -1,41 +1,38 @@
-def DFS(s):
-    dr = [-1,0,1,0]
-    dc = [0,1,0,-1]
+# bj1012: 유기농 배추
 
-    stack = []
-    stack.append(s)
-    visited[s[0]][s[1]] = 1
-    now = s
-    while True:
+from collections import deque
+
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
+
+
+def BFS(a,b):
+    q = deque()
+    q.append((a,b))
+    farm[a][b] = 0
+    while q:
+        x, y = q.popleft()
         for i in range(4):
-            nr = now[0]+dr[i]
-            nc = now[1]+dc[i]
-            if 0<=nr<n and 0<=nc<m and farm[nr][nc]==1 and visited[nr][nc]==0:
-                visited[nr][nc] = 1
-                stack.append([nr,nc])
-                break 
-        else:
-            if stack:
-                now=stack.pop()
-            else:
-                break
-    return 1
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx < 0 or nx >= N or ny < 0 or ny >= M:
+                continue
+            if farm[nx][ny] == 1:
+                farm[nx][ny] = 0
+                q.append((nx, ny))
+
 
 T = int(input())
 for tc in range(T):
-    m, n, k = map(int,input().split())
-
-    farm = [[0]*m for _ in range(n)]
-    visited = [[0]*m for _ in range(n)]
-
-    for _ in range(k):
-        x, y = map(int,input().split())
+    M, N, K = map(int, input().split())
+    farm = [[0]*M for _ in range(N)]
+    for _ in range(K):
+        x, y = map(int, input().split())
         farm[y][x] = 1
-    
     cnt = 0
-    for r in range(n):
-        for c in range(m):
-            if farm[r][c] == 1 and visited[r][c] == 0:
-                cnt += DFS([r,c])
-    
+    for i in range(N):
+        for j in range(M):
+            if farm[i][j] == 1:
+                cnt += 1
+                BFS(i, j)
     print(cnt)
